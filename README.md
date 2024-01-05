@@ -4,13 +4,36 @@ Customizing TLS (JA3) Fingerprints through HTTP Proxy
 
 ## Usage
 
+### Building from source
+
 ```bash
 git clone https://github.com/lylemi/ja3proxy
 cd ja3proxy
 make
 ./ja3proxy -port 8080 -client 360Browser -version 7.5
+
 curl -v -k --proxy http://localhost:8080 https://www.example.com
 ```
+
+### Using docker
+
+```bash
+# With docker CLI
+docker run \
+      -v ./credentials:/credentials \
+      -p 8080:8080 \
+      ghcr.io/LyleMi/ja3proxy:latest \
+      -cert /credentials/cert.pem \
+      -key /credentials/key.pem \
+      -client 360Browser \
+      -version 7.5
+# With docker compose (see compose.yaml)
+docker compose up -d
+
+curl -v -k --proxy http://localhost:8080 https://www.example.com
+```
+
+### CLI usage
 
 ```bash
 Usage of ja3proxy:
